@@ -1,0 +1,6 @@
+{
+  "name": "KajKori AI",
+  "description": "Bangladesh-focused AI-powered marketplace connecting students and local businesses",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
