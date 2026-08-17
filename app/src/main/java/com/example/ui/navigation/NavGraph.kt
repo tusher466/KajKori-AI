@@ -11,6 +11,7 @@ import com.example.ui.screens.business.ProblemIntakeScreen
 import com.example.ui.screens.business.AnalysisResultScreen
 import com.example.ui.screens.business.ProjectConfirmationScreen
 import com.example.ui.screens.student.ProjectDetailsScreen
+import com.example.ui.screens.student.StudentSkillPassportScreen
 import com.example.domain.UserRole
 import com.example.domain.JsonParser
 import com.example.domain.MicroProject
@@ -22,6 +23,7 @@ object Routes {
     const val ANALYSIS_RESULT = "analysis_result/{problem}"
     const val PROJECT_CONFIRMATION = "project_confirmation/{projectJson}"
     const val PROJECT_DETAILS = "project_details/{projectId}"
+    const val STUDENT_SKILL_PASSPORT = "student_skill_passport"
     
     fun dashboardRoute(role: String) = "dashboard/$role"
     fun analysisResultRoute(problem: String) = "analysis_result/$problem"
@@ -58,7 +60,16 @@ fun AppNavGraph(
                 onNavigateToProblemIntake = { navController.navigate(Routes.PROBLEM_INTAKE) },
                 onNavigateToProjectDetails = { projectId ->
                     navController.navigate(Routes.projectDetailsRoute(projectId))
+                },
+                onNavigateToSkillPassport = {
+                    navController.navigate(Routes.STUDENT_SKILL_PASSPORT)
                 }
+            )
+        }
+        
+        composable(Routes.STUDENT_SKILL_PASSPORT) {
+            StudentSkillPassportScreen(
+                onBack = { navController.popBackStack() }
             )
         }
         

@@ -3,6 +3,7 @@ package com.example.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,7 +18,8 @@ import com.example.ui.screens.student.StudentDashboardContent
 fun DashboardShell(
     initialRole: UserRole = UserRole.STUDENT,
     onNavigateToProblemIntake: () -> Unit,
-    onNavigateToProjectDetails: (String) -> Unit
+    onNavigateToProjectDetails: (String) -> Unit,
+    onNavigateToSkillPassport: () -> Unit
 ) {
     var currentRole by remember { mutableStateOf(initialRole) }
     var currentTab by remember { mutableStateOf("Home") }
@@ -76,7 +78,7 @@ fun DashboardShell(
                             onClick = { currentTab = "Home" }
                         )
                         NavigationBarItem(
-                            icon = { Icon(Icons.Default.List, contentDescription = "Projects") },
+                            icon = { Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Projects") },
                             label = { Text("Projects") },
                             selected = currentTab == "Projects",
                             onClick = { currentTab = "Projects" }
@@ -112,7 +114,7 @@ fun DashboardShell(
                             onClick = { currentTab = "Home" }
                         )
                         NavigationRailItem(
-                            icon = { Icon(Icons.Default.List, contentDescription = "Projects") },
+                            icon = { Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Projects") },
                             label = { Text("Projects") },
                             selected = currentTab == "Projects",
                             onClick = { currentTab = "Projects" }
@@ -139,7 +141,21 @@ fun DashboardShell(
                             CenterText("My Projects (Coming Soon)")
                         }
                         "Profile" -> {
-                            CenterText("User Profile & Wallet (Coming Soon)")
+                            if (currentRole == UserRole.STUDENT) {
+                                Column(
+                                    modifier = Modifier.fillMaxSize().padding(16.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    Text("Student Profile", style = MaterialTheme.typography.titleLarge)
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Button(onClick = onNavigateToSkillPassport) {
+                                        Text("Edit Skill Passport")
+                                    }
+                                }
+                            } else {
+                                CenterText("Business Profile & Wallet (Coming Soon)")
+                            }
                         }
                     }
                 }
